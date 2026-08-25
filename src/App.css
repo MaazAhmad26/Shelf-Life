@@ -800,5 +800,7 @@ h1 {
 .brand-logo {
   width: 42px;
   height: 42px;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: 50%;
+  background: #5B2E9E;
 }
