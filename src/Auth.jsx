@@ -61,7 +61,10 @@ function Auth() {
 
   return (
     <div className="auth-container">
-      <h1>Shelf Life</h1>
+      <div className="brand-header">
+        <img src="/logo.png" alt="Shelf Life" className="brand-logo" />
+        <h1>Shelf Life</h1>
+      </div>
       <p>{isSignup ? 'Create an account' : 'Welcome back'}</p>
 
       <form onSubmit={handleSubmit} className="auth-form">

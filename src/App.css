@@ -789,3 +789,16 @@ h1 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}

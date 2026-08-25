@@ -338,7 +338,10 @@ function Dashboard({ user }) {
         )}
       </div>
 
-      <h1>Shelf Life</h1>
+      <div className="brand-header">
+        <img src="/logo.png" alt="Shelf Life" className="brand-logo" />
+        <h1>Shelf Life</h1>
+      </div>
       <p>Your pantry, tracked.</p>
       <button onClick={handleLogout} className="logout-btn">Log Out</button>
 
