@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import { signOut } from 'firebase/auth';
 import { auth } from './firebase';
+import posthog from 'posthog-js';
 
 const API_URL = 'https://gorbfkap7d.execute-api.us-east-1.amazonaws.com/prod/';
 
@@ -102,6 +103,7 @@ function Dashboard({ user }) {
       setExpiryDate('');
       setLimitReached(false);
       showToast('Item added successfully.');
+      posthog.capture('item_added', { item_name: name, quantity: quantity });
     } finally {
       setIsSubmitting(false);
     }
@@ -130,6 +132,7 @@ function Dashboard({ user }) {
         setRemovingItemId(null);
         setLimitReached(false);
         showToast(`"${itemName}" marked as used.`);
+        posthog.capture('item_marked_used', { item_name: itemName });
       }, 280);
     } catch {
       setMarkUsedLoadingId(null);
@@ -186,6 +189,7 @@ function Dashboard({ user }) {
 
     const data = await res.json();
     setRecipes(data.recipes);
+    posthog.capture('recipe_suggested', { ingredients_count: selectedNames.length });
     setLoadingRecipes(false);
   }
 

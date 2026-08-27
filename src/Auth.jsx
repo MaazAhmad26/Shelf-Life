@@ -6,6 +6,7 @@ import {
   signInAnonymously,
   GoogleAuthProvider,
 } from 'firebase/auth';
+import posthog from 'posthog-js';
 import { auth } from './firebase';
 
 const googleProvider = new GoogleAuthProvider();
@@ -25,6 +26,7 @@ function Auth() {
     try {
       if (isSignup) {
         await createUserWithEmailAndPassword(auth, email, password);
+        posthog.capture('signup_completed', { method: 'email' });
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
@@ -38,7 +40,10 @@ function Auth() {
     setIsGoogleLoading(true);
 
     try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      if (result._tokenResponse?.isNewUser) {
+        posthog.capture('signup_completed', { method: 'google' });
+      }
     } catch (err) {
       setError(err.message);
     } finally {
